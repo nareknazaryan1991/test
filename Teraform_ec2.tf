@@ -1,36 +1,23 @@
 # Region
 provider "aws" {
-  region = "us-west-1" 
+  region = "us-east-1" 
 }
 
-data "aws_ami" "ec2-db" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ec2-db"]
-  }
-
-  filter {
-    name   = "state"
-    values = ["available"]
-  }
-}
-
-resource "aws_instance" "ec2-db" {
-  ami                         = "ami-0781b2f5146911b9a"
-  instance_type               = "t2.micro"
-  subnet_id                   = module.vpc.public_subnets[0]
-  vpc_security_group_ids      = [aws_security_group.ec2_security_group.id]
-  associate_public_ip_address = true
-  key_name                    = data.aws_key_pair.ec2_key.key_name
+# Create an EC2 instance
+resource "aws_instance" "terraform_ec2" {
+ ami = "ami-0c7217cdde317cfec"
+ key_name = "narek-es2-2.2-key"
+ instance_type = "t2.micro"
+ subnet_id = aws_subnet.terraform_subnet.id
+ vpc_security_group_ids = [aws_security_group.terraform_vpc_security_group.id]
+ 
 
   tags = {
-    Name = "ec2-db"
+    Name = "Terraform_Narek"
   }
+
+
 }
-
-
 # Create a VPC
 resource "aws_vpc" "terraform_vpc" {
   cidr_block = "10.0.0.0/16"
