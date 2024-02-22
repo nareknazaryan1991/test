@@ -5,13 +5,13 @@ provider "aws" {
 
 # Create an EC2 instance
 resource "aws_instance" "ec2-db" {
-  
+
   ami                         = "ami-0781b2f5146911b9a"
   instance_type               = "t2.micro"
   subnet_id                   = module.vpc.public_subnets[0]
-  vpc_security_group_ids      = [aws_security_group.ec2_security_group.id]
+  vpc_security_group_ids      = [aws_security_group.terraform_vpc_security_group.id]
   associate_public_ip_address = true
-  key_name                    = data.aws_key_pair.ec2_key.key_name
+  key_name                    = "narek-es2-2.2-key"
   tags = {
     Name = "ec2-db"
   }
