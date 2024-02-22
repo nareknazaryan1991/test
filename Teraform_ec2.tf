@@ -3,8 +3,9 @@ provider "aws" {
   region = "us-west-1" 
 }
 
-# Create an EC2 instanceresource "aws_instance" "ec2-db" 
-{
+# Create an EC2 instance
+resource "aws_instance" "ec2-db" {
+  
   ami                         = "ami-0781b2f5146911b9a"
   instance_type               = "t2.micro"
   subnet_id                   = module.vpc.public_subnets[0]
