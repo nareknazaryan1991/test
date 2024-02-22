@@ -28,7 +28,7 @@ resource "aws_vpc" "db_vpc" {
 
 # Create a Subnet
 resource "aws_subnet" "db_subnet"{
-  vpc_id = aws_vpc.terraform_vpc.id
+  vpc_id = aws_vpc.db_vpc.id
   cidr_block = "10.0.16.0/20"
   availability_zone  = "us-east-1a"   
   map_public_ip_on_launch = true
@@ -62,7 +62,7 @@ resource "aws_route_table" "db_route_table"{
 
 # Create a Route associate
 resource "aws_route_table_association" "db_route_table_association"{
-  subnet_id = aws_subnet.tdb_subnet.id
+  subnet_id = aws_subnet.db_subnet.id
   route_table_id = aws_route_table.db_route_table.id 
   
 }
