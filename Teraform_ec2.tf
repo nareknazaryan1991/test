@@ -3,21 +3,19 @@ provider "aws" {
   region = "us-east-1" 
 }
 
-# Create an EC2 instance
-resource "aws_instance" "terraform_ec2" {
- ami = "ami-0c7217cdde317cfec"
- key_name = "narek-es2-2.2-key"
- instance_type = "t2.micro"
- subnet_id = aws_subnet.terraform_subnet.id
- vpc_security_group_ids = [aws_security_group.terraform_vpc_security_group.id]
- 
-
+resource "aws_instance" "ec2-db" {
+  ami                         = data.aws_ami.ec2-db.id
+  instance_type               = "t2.micro"
+  subnet_id                   = module.vpc.public_subnets[0]
+  vpc_security_group_ids      = [aws_security_group.ec2_security_group.id]
+  associate_public_ip_address = true
+  key_name                    = data.aws_key_pair.ec2_key.key_name
   tags = {
-    Name = "Terraform_Narek"
+    Name = "ec2-db"
   }
 
-
 }
+
 # Create a VPC
 resource "aws_vpc" "terraform_vpc" {
   cidr_block = "10.0.0.0/16"
