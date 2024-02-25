@@ -11,7 +11,7 @@ resource "aws_instance" "ec2-db" {
   subnet_id                   = aws_subnet.db_subnet.id
   vpc_security_group_ids      = [aws_security_group.db_vpc_security_group.id]
   associate_public_ip_address = true
-  key_name                    = "narek-es2-2.2-key"
+  key_name                    = "narek-es2-2.4-key"
   tags = {
     Name = "ec2-db"
   }
