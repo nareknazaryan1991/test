@@ -30,7 +30,7 @@ resource "aws_vpc" "db_vpc" {
 resource "aws_subnet" "db_subnet"{
   vpc_id = aws_vpc.db_vpc.id
   cidr_block = "10.0.16.0/20"
-  availability_zone  = "us-east-1a"   
+  availability_zone  = "us-west-1a"   
   map_public_ip_on_launch = true
 
   tags = {
